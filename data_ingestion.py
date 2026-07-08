@@ -23,7 +23,7 @@ def load_env_file(env_path: str = ".env") -> None:
 load_env_file()
 
 # 1. Database Connection Configuration
-DB_USER = os.getenv("DB_USER", "postgres")
+DB_USER = os.getenv("DB_USER", "postgres") # In the dotenv file.
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", "5432")
@@ -88,7 +88,7 @@ SQL_COLUMNS = [
 ]
 
 def ingest_wfp_data():
-    csv_path = "./data/wfp_food_prices_ken.csv"  # Ensure name matches exactly
+    csv_path = "./data/wfp_food_prices_ken.csv"  
     ensure_database_exists()
     engine = create_db_engine()
     ensure_schema_exists(engine, "bronze")
@@ -122,6 +122,9 @@ def ingest_wfp_data():
 
     # 4. Stream directly to Bronze Layer
     print("[*] Writing records to bronze.raw_food_prices...")
+    with engine.begin() as connection:
+        connection.execute(text("TRUNCATE TABLE bronze.raw_food_prices RESTART IDENTITY"))
+
     df.to_sql(
         name='raw_food_prices',
         con=engine,

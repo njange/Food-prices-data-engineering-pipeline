@@ -1,6 +1,6 @@
 # Phase 1: SQL Foundations & Initial Automation
 
-This phase establishes the Bronze staging layer for Kenya food price data. The goal is to land the raw CSV into PostgreSQL, validate the structure, and perform an initial data quality review before any downstream modeling or transformation work.
+This phase I established the Bronze staging layer for Kenya food price data. The goal is to land the raw CSV into PostgreSQL, validated the structure, and perform an initial data quality review before any downstream modeling or transformation work.
 
 ## 1. Database Environment Setup
 
